@@ -1,11 +1,20 @@
 const Questions = require('./models/questions.js');
+const Game = require('./models/game.js');
+const QuestionView = require('./views/question_view');
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Javascript initialized');
-    
-    //https://opentdb.com/api.php?amount=1
+
+    const questionDiv = document.querySelector('#question');
+    const questionView = new QuestionView(questionDiv);
+    questionView.bindEvents();
+
+    const game = new Game();
+    game.bindEvents();
+
     const questions = new Questions();
     questions.getData();
+
     
 
 });

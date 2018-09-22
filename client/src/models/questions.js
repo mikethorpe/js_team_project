@@ -3,24 +3,21 @@ const Request = require('../helpers/request.js')
 
 const Questions = function () {
     this.urls = [
-        'https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple',
+        'https://opentdb.com/api.php?amount=4&difficulty=hard&type=multiple',
         'https://opentdb.com/api.php?amount=4&difficulty=medium&type=multiple',
-        'https://opentdb.com/api.php?amount=4&difficulty=hard&type=multiple'
+        'https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple'
     ]
     this.questionsArray = [];
 }
 
-
 Questions.prototype.getData = function () {
-    
     let numberOfApiRequests = 0;
     PubSub.subscribe('Questions:api-response-received', () => {
         numberOfApiRequests++
         if (numberOfApiRequests > 2){
-            PubSub.publish('Questions:question-data-ready', this.questionsArray)
+            PubSub.publish('Questions:questions-data-ready', this);
         }
     })
-
     this.makeApiRequests();
 }
 
@@ -37,11 +34,16 @@ Questions.prototype.makeApiRequests = function() {
     })
 }
 
-Questions.prototype.pushDataToQuestionsArray = function(questions) {
-    while (questions.length != 0) {
-        const question = questions.pop();
+Questions.prototype.pushDataToQuestionsArray = function(questionsFromApi) {
+    while (questionsFromApi.length != 0) {
+        const question = questionsFromApi.pop();
         this.questionsArray.push(question);
     }
+}
+
+Questions.prototype.getQuestion = function(){
+    const question = this.questionsArray.pop();
+    return question;
 }
 
 
