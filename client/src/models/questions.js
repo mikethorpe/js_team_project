@@ -8,18 +8,39 @@ const Questions = function () {
         'https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple'
     ]
     this.questionsArray = [];
+    this.numberOfApiRequests = 0;
+}
+
+Questions.prototype.bindEvents = function(){
+    PubSub.subscribe('Questions:api-response-received', () => {
+        this.numberOfApiRequests++
+        if (this.numberOfApiRequests > 2){
+            PubSub.publish('Questions:questions-data-ready', this);
+            console.log('Questions: published Questions:questions-data-ready event');
+            console.log('number of api requests:', this.numberOfApiRequests);            
+        }
+    })
+
 }
 
 Questions.prototype.getData = function () {
-    let numberOfApiRequests = 0;
-    PubSub.subscribe('Questions:api-response-received', () => {
-        numberOfApiRequests++
-        if (numberOfApiRequests > 2){
-            PubSub.publish('Questions:questions-data-ready', this);
-        }
-    })
+    this.numberOfApiRequests = 0;
     this.makeApiRequests();
 }
+
+// Questions.prototype.getData = function () {
+//     this.numberOfApiRequests = 0;
+//     PubSub.subscribe('Questions:api-response-received', () => {
+//         this.numberOfApiRequests++
+//         if (this.numberOfApiRequests > 2){
+//             PubSub.publish('Questions:questions-data-ready', this);
+//             console.log('Questions: published Questions:questions-data-ready event');
+//             console.log('number of api requests:', this.numberOfApiRequests);
+            
+//         }
+//     })
+//     this.makeApiRequests();
+// }
 
 Questions.prototype.makeApiRequests = function() {
     this.urls.forEach(url => {

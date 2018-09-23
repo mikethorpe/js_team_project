@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     game.bindEvents();
 
     const questions = new Questions();
+    questions.bindEvents();
     questions.getData();
 
     

@@ -4,6 +4,9 @@ const PubSub = require('../helpers/pub_sub');
 const Game = function() {
     this.questions = null;
     this.currentQuestion = null;
+    this.currentQuestionNumber = 0;
+    this.maxNumberOfQuestionsInGame = 12;
+    this.numberOfQuestionsCorrect = 0;
 }
 
 Game.prototype.bindEvents = function(){
@@ -22,6 +25,7 @@ Game.prototype.nextQuestion = function(){
     this.currentQuestion = this.questions.getQuestion();
     //consider reformatting the question into something usable in the view
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
+    console.log(this.currentQuestion);
 }
 
 Game.prototype.checkAnswer = function(answerSubmitted){
@@ -29,8 +33,8 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 
     if (correctAnswer == answerSubmitted) {
         console.log("correct answer");
-        this.nextQuestion();
-        // additional logic
+        this.numberOfQuestionsCorrect++;
+        this.checkWinCondition();
     }
     else {
         console.log('incorrect answer');
@@ -39,13 +43,25 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 }
 
 Game.prototype.newGame = function(){
-    console.log("New game starting...");    
+    console.log("New game starting..."); 
     this.questions.getData();
+    this.numberOfQuestionsCorrect = 0;
 }
 
 Game.prototype.endGame = function(){
     console.log("Game over");
     this.newGame();
+}
+
+Game.prototype.checkWinCondition = function(){
+    console.log('Checking win condition');
+    console.log('Number of correct answers: ', this.numberOfQuestionsCorrect);
+    if (this.numberOfQuestionsCorrect == this.maxNumberOfQuestionsInGame) {
+        this.endGame();
+    }
+    else {
+        this.nextQuestion();
+    }
 }
 
 module.exports = Game;
