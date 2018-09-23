@@ -34,8 +34,18 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     }
     else {
         console.log('incorrect answer');
-        // end game logic
+        this.endGame();
     }
+}
+
+Game.prototype.newGame = function(){
+    console.log("New game starting...");    
+    this.questions.getData();
+}
+
+Game.prototype.endGame = function(){
+    console.log("Game over");
+    this.newGame();
 }
 
 module.exports = Game;
