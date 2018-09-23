@@ -7,8 +7,13 @@ const Questions = function () {
         'https://opentdb.com/api.php?amount=4&difficulty=medium&type=multiple',
         'https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple'
     ]
-    this.questionsArray = [];
     this.numberOfApiRequests = 0;
+    this.questionsArray = [];
+    this.questionsFromApi = {
+        easy: [],
+        medium: [],
+        hard: []
+    };
 }
 
 Questions.prototype.bindEvents = function(){
@@ -19,6 +24,9 @@ Questions.prototype.bindEvents = function(){
     PubSub.subscribe('Questions:api-response-received', () => {
         this.numberOfApiRequests++
         if (this.numberOfApiRequests > 2){
+            this.pushToQuestionsArray(this.questionsFromApi.hard);
+            this.pushToQuestionsArray(this.questionsFromApi.medium);
+            this.pushToQuestionsArray(this.questionsFromApi.easy);            
             PubSub.publish('Questions:questions-data-ready', this.questionsArray);
             console.log('number of api requests:', this.numberOfApiRequests);            
         }
@@ -35,17 +43,29 @@ Questions.prototype.makeApiRequests = function() {
         const request = new Request(url);
         request.get()
             .then((questionsResponse) => {
-                const questionsFromAPi = questionsResponse.results;
-                this.pushDataToQuestionsArray(questionsFromAPi);
+                const questionsFromApi = questionsResponse.results; 
+                this.sortQuestionsByDifficulty(questionsFromApi);
                 PubSub.publish('Questions:api-response-received');
             })
             .catch(console.error);
     })
 }
 
-Questions.prototype.pushDataToQuestionsArray = function(questionsFromApi) {
-    while (questionsFromApi.length != 0) {
-        const question = questionsFromApi.pop();
+Questions.prototype.sortQuestionsByDifficulty = function(questionsFromApi) {
+    if (questionsFromApi[0].difficulty == 'easy') {
+        this.questionsFromApi.easy = this.questionsFromApi.easy.concat(questionsFromApi);
+    }
+    else if (questionsFromApi[0].difficulty == 'medium') {
+        this.questionsFromApi.medium = this.questionsFromApi.medium.concat(questionsFromApi);
+    }
+    else if (questionsFromApi[0].difficulty == 'hard') {
+        this.questionsFromApi.hard = this.questionsFromApi.hard.concat(questionsFromApi);
+    }
+}
+
+Questions.prototype.pushToQuestionsArray = function(questions) {
+    while (questions.length != 0) {
+        const question = questions.pop();
         this.questionsArray.push(question);
     }
 }
