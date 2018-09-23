@@ -12,7 +12,7 @@ const Questions = function () {
 }
 
 Questions.prototype.bindEvents = function(){
-    PubSub.subscribe('NewGameView:new-game-button-clicked', () => {
+    PubSub.subscribe('Game:start-new-game', () => {
         this.getData();
     })
     

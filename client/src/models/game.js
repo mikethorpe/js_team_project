@@ -12,17 +12,33 @@ const Game = function() {
 }
 
 Game.prototype.bindEvents = function(){
-    PubSub.subscribe('Questions:questions-data-ready', (event) => {
-        this.questionsArray = event.detail;
+
+    PubSub.subscribe('NewGameView:new-game-button-clicked', () => {
         this.newGame();
-        this.nextQuestion();
+    });
+
+    PubSub.subscribe('Questions:questions-data-ready', (event) => {
+        const questions = event.detail;
+        this.setupNewGame(questions);
     });
 
     PubSub.subscribe('AnswerView:answer-submitted', (event) => {
         const answerSubmitted = event.detail;
         this.checkAnswer(answerSubmitted);
     });
+}
 
+Game.prototype.newGame = function(){
+    PubSub.publish('Game:start-new-game');
+}
+
+Game.prototype.setupNewGame = function(questions){
+    console.log("Setting up new game...");
+    this.numberOfQuestionsCorrect = 0;
+    this.currentQuestionNumber = 0;
+    this.gameWon = false;
+    this.questionsArray = questions;
+    this.nextQuestion();
 }
 
 Game.prototype.nextQuestion = function(){
@@ -43,13 +59,6 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         console.log('incorrect answer');
         this.endGame();
     }
-}
-
-Game.prototype.newGame = function(){
-    console.log("Setting up new game..."); 
-    this.numberOfQuestionsCorrect = 0;
-    this.currentQuestionNumber = 0;
-    this.gameWon = false;
 }
 
 Game.prototype.endGame = function(){
