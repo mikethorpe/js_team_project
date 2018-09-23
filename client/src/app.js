@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const questions = new Questions();
     questions.bindEvents();
-    // questions.getData();
 
     const newGameView = new NewGameView(gameDisplayDiv);
     newGameView.render();

@@ -19,8 +19,7 @@ Questions.prototype.bindEvents = function(){
     PubSub.subscribe('Questions:api-response-received', () => {
         this.numberOfApiRequests++
         if (this.numberOfApiRequests > 2){
-            PubSub.publish('Questions:questions-data-ready', this);
-            console.log('Questions: published Questions:questions-data-ready event');
+            PubSub.publish('Questions:questions-data-ready', this.questionsArray);
             console.log('number of api requests:', this.numberOfApiRequests);            
         }
     })
@@ -50,11 +49,5 @@ Questions.prototype.pushDataToQuestionsArray = function(questionsFromApi) {
         this.questionsArray.push(question);
     }
 }
-
-Questions.prototype.getQuestion = function(){
-    const question = this.questionsArray.pop();
-    return question;
-}
-
 
 module.exports = Questions;

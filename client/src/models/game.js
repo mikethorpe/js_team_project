@@ -3,7 +3,7 @@ const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
 
 const Game = function() {
-    this.questions = null;
+    this.questionsArray = null;
     this.currentQuestion = null;
     this.currentQuestionNumber = 0;
     this.maxNumberOfQuestionsInGame = 3;
@@ -13,7 +13,7 @@ const Game = function() {
 
 Game.prototype.bindEvents = function(){
     PubSub.subscribe('Questions:questions-data-ready', (event) => {
-        this.questions = event.detail;
+        this.questionsArray = event.detail;
         this.newGame();
         this.nextQuestion();
     });
@@ -26,7 +26,7 @@ Game.prototype.bindEvents = function(){
 }
 
 Game.prototype.nextQuestion = function(){
-    this.currentQuestion = this.questions.getQuestion();
+    this.currentQuestion = this.questionsArray.pop();
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     console.log(this.currentQuestion);
 }
@@ -47,7 +47,6 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 
 Game.prototype.newGame = function(){
     console.log("Setting up new game..."); 
-    // this.questions.getData();
     this.numberOfQuestionsCorrect = 0;
     this.currentQuestionNumber = 0;
     this.gameWon = false;
@@ -66,7 +65,6 @@ Game.prototype.endGame = function(){
         const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
         gameOverView.render();
     }
-
 }
 
 Game.prototype.checkWinCondition = function(){
