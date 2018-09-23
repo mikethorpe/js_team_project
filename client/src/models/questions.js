@@ -12,6 +12,10 @@ const Questions = function () {
 }
 
 Questions.prototype.bindEvents = function(){
+    PubSub.subscribe('NewGameView:new-game-button-clicked', () => {
+        this.getData();
+    })
+    
     PubSub.subscribe('Questions:api-response-received', () => {
         this.numberOfApiRequests++
         if (this.numberOfApiRequests > 2){
@@ -20,7 +24,6 @@ Questions.prototype.bindEvents = function(){
             console.log('number of api requests:', this.numberOfApiRequests);            
         }
     })
-
 }
 
 Questions.prototype.getData = function () {
