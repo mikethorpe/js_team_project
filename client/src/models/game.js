@@ -23,7 +23,6 @@ Game.prototype.bindEvents = function(){
 
 Game.prototype.nextQuestion = function(){
     this.currentQuestion = this.questions.getQuestion();
-    //consider reformatting the question into something usable in the view
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     console.log(this.currentQuestion);
 }

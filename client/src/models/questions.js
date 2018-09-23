@@ -28,20 +28,6 @@ Questions.prototype.getData = function () {
     this.makeApiRequests();
 }
 
-// Questions.prototype.getData = function () {
-//     this.numberOfApiRequests = 0;
-//     PubSub.subscribe('Questions:api-response-received', () => {
-//         this.numberOfApiRequests++
-//         if (this.numberOfApiRequests > 2){
-//             PubSub.publish('Questions:questions-data-ready', this);
-//             console.log('Questions: published Questions:questions-data-ready event');
-//             console.log('number of api requests:', this.numberOfApiRequests);
-            
-//         }
-//     })
-//     this.makeApiRequests();
-// }
-
 Questions.prototype.makeApiRequests = function() {
     this.urls.forEach(url => {
         const request = new Request(url);
