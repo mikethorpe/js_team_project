@@ -1,5 +1,6 @@
 const PubSub = require('../helpers/pub_sub');
 const AnswersView = require ('./answers_view');
+const formatterHelper = require('../helpers/formatHTTPElements.js')
 
 const QuestionView = function(container) {
     this.question = null;
@@ -16,6 +17,7 @@ QuestionView.prototype.bindEvents = function(){
 QuestionView.prototype.render = function(){
     this.container.innerHTML = '';
     const questionDiv = document.createElement('div');
+    this.question.question = formatterHelper(this.question.question);
     questionDiv.textContent = this.question.question;
     this.container.appendChild(questionDiv);
     this.renderAnswers();

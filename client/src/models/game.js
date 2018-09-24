@@ -1,6 +1,7 @@
 const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
+const formatterHelper = require('../helpers/formatHTTPElements.js');
 
 const Game = function() {
     this.questionsArray = null;
@@ -43,8 +44,14 @@ Game.prototype.setupNewGame = function(questions){
 
 Game.prototype.nextQuestion = function(){
     this.currentQuestion = this.questionsArray.pop();
+    this.currentQuestion.incorrect_answers = this.currentQuestion.incorrect_answers.map((incorrectAnswer) => {
+        return formatterHelper(incorrectAnswer);
+    })
+    this.currentQuestion.correct_answer = formatterHelper(this.currentQuestion.correct_answer);
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     console.log(this.currentQuestion);
+    console.log(this.currentQuestion.correct_answer);
+    
 }
 
 Game.prototype.checkAnswer = function(answerSubmitted){
@@ -56,6 +63,9 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         this.checkWinCondition();
     }
     else {
+        console.log('incorrect answer');
+        console.log(answerSubmitted);
+        console.log(correctAnswer);
         this.endGame();
     }
 }
@@ -88,5 +98,12 @@ Game.prototype.checkWinCondition = function(){
         this.nextQuestion();
     }
 }
+
+const replaceAll = function(string, search, replacement) {
+    let target = string;
+    return target.split(search).join(replacement);
+};
+
+
 
 module.exports = Game;
