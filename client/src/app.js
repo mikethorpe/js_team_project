@@ -31,7 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = new Questions();
     questions.bindEvents();
 
+    const cryptoCurrency = new CryptoCurrency();
+    cryptoCurrency.bindEvents();
     
     const newGameView = new NewGameView(gameDisplayDiv);
     newGameView.render();
+
 });
