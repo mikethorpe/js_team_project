@@ -79,7 +79,9 @@ Game.prototype.endGame = function(){
         gameOverView.render();
     }
     else {
-        const loseMessage = 'Wrong answer - game over!'        
+        const gameOverMessage = 'Wrong answer - game over!';
+        const correctAnswerMessage = `\n The correct answer was: ${this.currentQuestion.correct_answer}`;
+        const loseMessage = gameOverMessage + correctAnswerMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
         gameOverView.render();
     }
