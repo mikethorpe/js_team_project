@@ -7,23 +7,10 @@ const Game = function() {
     this.questionsArray = null;
     this.currentQuestion = null;
     this.currentQuestionNumber = 0;
-    this.maxNumberOfQuestionsInGame = 1;
+    this.maxNumberOfQuestionsInGame = 3;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
 }
-
-const testQuestion = {
-    "category": "Entertainment: Video Games",
-    "type": "multiple",
-    "difficulty": "hard",
-    "question": "In the game &quot;Overwatch,&quot; which quote does the hero &quot;McCree&quot; NOT say upon using his flashbang ability?",
-    "correct_answer": "&quot;You done?&quot;",
-    "incorrect_answers": [
-    "&quot;Whoa there.&quot;",
-    "&quot;Hold up now.&quot;",
-    "&quot;Don&#039;t move.&quot;"
-    ]
-    }
 
 Game.prototype.bindEvents = function(){
 
@@ -56,8 +43,7 @@ Game.prototype.setupNewGame = function(questions){
 }
 
 Game.prototype.nextQuestion = function(){
-    //refactor this into this.questionsArray.pop();
-    this.currentQuestion = testQuestion;
+    this.currentQuestion = this.questionsArray.pop();
     this.currentQuestion.incorrect_answers = this.currentQuestion.incorrect_answers.map((incorrectAnswer) => {
         return formatterHelper(incorrectAnswer);
     })
