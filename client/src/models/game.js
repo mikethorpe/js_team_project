@@ -60,6 +60,7 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     if (correctAnswer == answerSubmitted) {
         this.numberOfQuestionsCorrect++;
         PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
+        PubSub.publish('Game:correct-answer-submitted')
         this.checkWinCondition();
     }
     else {

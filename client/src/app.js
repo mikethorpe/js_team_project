@@ -3,6 +3,7 @@ const Game = require('./models/game.js');
 const QuestionView = require('./views/question_view');
 const NewGameView = require('./views/new_game_view');
 const ModalNotificationView = require('./views/modal_notification_view');
+const Score = require('./models/score.js')
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Javascript initialized');
@@ -15,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameDisplayDiv = document.querySelector('#game_display');
     const questionView = new QuestionView(gameDisplayDiv);
     questionView.bindEvents();
+
+    const score = new Score();
+    score.bindEvents();
 
     const game = new Game();
     game.bindEvents();
