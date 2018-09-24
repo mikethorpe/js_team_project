@@ -58,8 +58,9 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     const correctAnswer = this.currentQuestion.correct_answer;
 
     if (correctAnswer == answerSubmitted) {
-        console.log("correct answer");
         this.numberOfQuestionsCorrect++;
+        PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
+        PubSub.publish('Game:correct-answer-submitted')
         this.checkWinCondition();
     }
     else {
