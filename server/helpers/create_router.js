@@ -6,7 +6,7 @@ const createRouter = function () {
 
     //INDEX
     router.get('/', (req, res) => {
-        
+        res.sendFile('index.html');
     });
 
     //SHOW

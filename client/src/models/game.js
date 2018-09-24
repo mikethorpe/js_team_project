@@ -6,10 +6,23 @@ const Game = function() {
     this.questionsArray = null;
     this.currentQuestion = null;
     this.currentQuestionNumber = 0;
-    this.maxNumberOfQuestionsInGame = 3;
+    this.maxNumberOfQuestionsInGame = 1;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
 }
+
+const testQuestion = {
+    "category": "Entertainment: Video Games",
+    "type": "multiple",
+    "difficulty": "hard",
+    "question": "In the game &quot;Overwatch,&quot; which quote does the hero &quot;McCree&quot; NOT say upon using his flashbang ability?",
+    "correct_answer": "&quot;You done?&quot;",
+    "incorrect_answers": [
+    "&quot;Whoa there.&quot;",
+    "&quot;Hold up now.&quot;",
+    "&quot;Don&#039;t move.&quot;"
+    ]
+    }
 
 Game.prototype.bindEvents = function(){
 
@@ -42,9 +55,19 @@ Game.prototype.setupNewGame = function(questions){
 }
 
 Game.prototype.nextQuestion = function(){
-    this.currentQuestion = this.questionsArray.pop();
+    //refactor this into this.questionsArray.pop();
+    this.currentQuestion = testQuestion;
+    //TODO Replace text on all answers from &quot to \"
+    this.currentQuestion.incorrect_answers.forEach((incorrectAnswer) => {
+        const formattedAnswer = replaceAll(incorrectAnswer, "&quot;", "\"")
+        incorrectAnswer = formattedAnswer;
+    })
+    const formattedAnswer = replaceAll(this.currentQuestion.correct_answer, "&quot;", "\"");
+    this.currentQuestion.correct_answer = formattedAnswer;
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     console.log(this.currentQuestion);
+    console.log(this.currentQuestion.correct_answer);
+    
 }
 
 Game.prototype.checkAnswer = function(answerSubmitted){
@@ -57,6 +80,8 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     }
     else {
         console.log('incorrect answer');
+        console.log(answerSubmitted);
+        console.log(correctAnswer);
         this.endGame();
     }
 }
@@ -87,5 +112,12 @@ Game.prototype.checkWinCondition = function(){
         this.nextQuestion();
     }
 }
+
+const replaceAll = function(string, search, replacement) {
+    let target = string;
+    return target.split(search).join(replacement);
+};
+
+
 
 module.exports = Game;

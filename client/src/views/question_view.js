@@ -6,9 +6,23 @@ const QuestionView = function(container) {
     this.container = container;
 }
 
+const testQuestion = {
+    "category": "Entertainment: Video Games",
+    "type": "multiple",
+    "difficulty": "hard",
+    "question": "In the game &quot;Overwatch,&quot; which quote does the hero &quot;McCree&quot; NOT say upon using his flashbang ability?",
+    "correct_answer": "&quot;You done?&quot;",
+    "incorrect_answers": [
+    "&quot;Whoa there.&quot;",
+    "&quot;Hold up now.&quot;",
+    "&quot;Don&#039;t move.&quot;"
+    ]
+    }
+
 QuestionView.prototype.bindEvents = function(){
     PubSub.subscribe("Game:next-question-ready", (event) => {
-        this.question = event.detail;
+        //refactor this back into event.detail;
+        this.question = testQuestion;
         this.render();
     })
 }
