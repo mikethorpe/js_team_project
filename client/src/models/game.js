@@ -51,12 +51,11 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     const correctAnswer = this.currentQuestion.correct_answer;
 
     if (correctAnswer == answerSubmitted) {
-        console.log("correct answer");
         this.numberOfQuestionsCorrect++;
+        PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
         this.checkWinCondition();
     }
     else {
-        console.log('incorrect answer');
         this.endGame();
     }
 }
