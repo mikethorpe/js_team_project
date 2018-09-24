@@ -1,6 +1,7 @@
 const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
+const formatterHelper = require('../helpers/formatHTTPElements.js');
 
 const Game = function() {
     this.questionsArray = null;
@@ -57,13 +58,10 @@ Game.prototype.setupNewGame = function(questions){
 Game.prototype.nextQuestion = function(){
     //refactor this into this.questionsArray.pop();
     this.currentQuestion = testQuestion;
-    //TODO Replace text on all answers from &quot to \"
-    this.currentQuestion.incorrect_answers.forEach((incorrectAnswer) => {
-        const formattedAnswer = replaceAll(incorrectAnswer, "&quot;", "\"")
-        incorrectAnswer = formattedAnswer;
+    this.currentQuestion.incorrect_answers = this.currentQuestion.incorrect_answers.map((incorrectAnswer) => {
+        return formatterHelper(incorrectAnswer);
     })
-    const formattedAnswer = replaceAll(this.currentQuestion.correct_answer, "&quot;", "\"");
-    this.currentQuestion.correct_answer = formattedAnswer;
+    this.currentQuestion.correct_answer = formatterHelper(this.currentQuestion.correct_answer);
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     console.log(this.currentQuestion);
     console.log(this.currentQuestion.correct_answer);
