@@ -6,15 +6,15 @@ const ScoreOptionView = function(container, option){
 }
 
 ScoreOptionView.prototype.render = function(){
-    const scoreOptionRadio = document.createElement('radio');
     
-    scoreOptionRadio.innerHTML = this.option;    
-    scoreOptionRadio.addEventListener('select', (event) => {
-        const optionText = `${event.target.value} BTC`;
+    const optionButton = document.createElement('button');
+    optionButton.innerHTML = this.option;    
+    optionButton.addEventListener('click', (event) => {
+        const optionText = event.target.value;
         PubSub.publish('ScoreOptionView:option-submitted', optionText);
     });
 
-    this.container.appendChild(scoreOptionDiv);
+    this.container.appendChild(optionButton);
 
 }
 
