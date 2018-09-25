@@ -1,14 +1,10 @@
 const PubSub = require('../helpers/pub_sub.js')
 const ScoreOptionView = require('../views/score_option_view.js')
 
-const ScoreOptionsView = function(container){
+const ScoreOptionsView = function(container, scoreOptions){
     this.container = container;
     // the container will be question_view so that the options view corresponds to the question it is being called with
-    this.scoreOptions = [{
-        value: 1,
-        currency: "BTC",
-        symbol: "BTC"
-    }];
+    this.scoreOptions = scoreOptions;
     // get this logic from the score model
 }
 

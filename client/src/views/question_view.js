@@ -5,14 +5,35 @@ const ScoreOptionsView = require('../views/score_options_view.js');
 
 const QuestionView = function(container) {
     this.question = null;
+    this.scoreOptions = null;
     this.container = container;
 }
 
 QuestionView.prototype.bindEvents = function(){
+    
     PubSub.subscribe("Game:next-question-ready", (event) => {
         this.question = event.detail;
-        this.render();
+        PubSub.publish('QuestionView:new-question-view-data'); 
     })
+
+    PubSub.subscribe('Score:score-options-for-question', (event) => {
+        this.scoreOptions = event.detail;
+        PubSub.publish('QuestionView:new-question-view-data');
+    })
+
+    let questionViewDataCounter = 0;
+    const numberOfQuestionViewData = 2;
+
+    PubSub.subscribe('QuestionView:new-question-view-data', () => {
+        questionViewDataCounter++;
+        console.log("questionViewDataCounter ", this);
+
+        if (questionViewDataCounter == numberOfQuestionViewData) {
+            this.render();
+            questionViewDataCounter = 0;
+        }
+    })
+
 }
 
 QuestionView.prototype.render = function(){
@@ -36,7 +57,7 @@ QuestionView.prototype.renderAnswers = function(){
 QuestionView.prototype.renderScoreOptions = function(){
     const scoreOptionsDiv = document.createElement('div');
     this.container.appendChild(scoreOptionsDiv);
-    const scoreOptionsView = new ScoreOptionsView(scoreOptionsDiv);
+    const scoreOptionsView = new ScoreOptionsView(scoreOptionsDiv, this.scoreOptions);
     scoreOptionsView.render();
 }
 
