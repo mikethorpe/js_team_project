@@ -1,6 +1,7 @@
 const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
+const Score = require('./score');
 const formatterHelper = require('../helpers/formatHTTPElements.js');
 
 const Game = function() {
@@ -10,6 +11,7 @@ const Game = function() {
     this.maxNumberOfQuestionsInGame = 3;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
+    this.score = new Score();
 }
 
 Game.prototype.bindEvents = function(){
@@ -23,7 +25,6 @@ Game.prototype.bindEvents = function(){
         this.setupNewGame(questions);
     });
 
-
     PubSub.subscribe('AnswerView:answer-submitted', (event) => {
         const answerSubmitted = event.detail;
         this.checkAnswer(answerSubmitted);
@@ -31,6 +32,7 @@ Game.prototype.bindEvents = function(){
 }
 
 Game.prototype.newGame = function(){
+    this.score.resetScore();
     PubSub.publish('Game:start-new-game');
 }
 
@@ -63,6 +65,7 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         this.numberOfQuestionsCorrect++;
         PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
         PubSub.publish('Game:correct-answer-submitted')
+        this.score.incrementScore();
         this.checkWinCondition();
     }
     else {
@@ -74,11 +77,11 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 }
 
 Game.prototype.endGame = function(){
-    const gameDisplayDiv = document.querySelector('#game_display');
+    const gameDisplayDiv = document.querySelector('#game_display'); 
     console.log("Game ending");    
     if (this.gameWon) {
-        const winMessage = 'Congratulations - you won!'
-        const gameOverView = new GameOverView(gameDisplayDiv, winMessage);
+        const gameOverMessage = 'Congratulations - you won!'
+        const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage);
         gameOverView.render();
     }
     else {
@@ -98,15 +101,9 @@ Game.prototype.checkWinCondition = function(){
         this.endGame();
     }
     else {
+        console.log('game not won...next question...');
         this.nextQuestion();
     }
 }
-
-const replaceAll = function(string, search, replacement) {
-    let target = string;
-    return target.split(search).join(replacement);
-};
-
-
 
 module.exports = Game;
