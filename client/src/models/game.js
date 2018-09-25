@@ -10,6 +10,7 @@ const Game = function() {
     this.maxNumberOfQuestionsInGame = 3;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
+    this.finalScoreMessage;
 }
 
 Game.prototype.bindEvents = function(){
@@ -74,20 +75,26 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 }
 
 Game.prototype.endGame = function(){
-    const gameDisplayDiv = document.querySelector('#game_display');
+    const gameDisplayDiv = document.querySelector('#game_display'); 
     console.log("Game ending");    
     if (this.gameWon) {
-        const winMessage = 'Congratulations - you won!'
+        const gameOverMessage = 'Congratulations - you won!'
+        this.parseCryptoScore();
+        console.log('right here', this.finalScoreMessage);
+        
+        const winMessage = gameOverMessage + this.finalScoreMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, winMessage);
         gameOverView.render();
     }
     else {
         const gameOverMessage = 'Wrong answer - game over!';
         const correctAnswerMessage = `\n The correct answer was: ${this.currentQuestion.correct_answer}`;
-        const loseMessage = gameOverMessage + correctAnswerMessage;
+        const scoreMessage = this.parseCryptoScore();
+        const loseMessage = gameOverMessage + correctAnswerMessage + scoreMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
         gameOverView.render();
     }
+    PubSub.publish('Game:game-ending');
 }
 
 Game.prototype.checkWinCondition = function(){
@@ -102,11 +109,22 @@ Game.prototype.checkWinCondition = function(){
     }
 }
 
-const replaceAll = function(string, search, replacement) {
-    let target = string;
-    return target.split(search).join(replacement);
-};
+Game.prototype.parseCryptoScore = function(){
+    PubSub.subscribe('Score:final-score-data-created', (event) => {
 
+        const finalScoreData = event.detail;
 
+        const finalScoreMessage = `Your final score of £${finalScoreData.finalScore} was worth
+        \n ${finalScoreData.cryptoCurrencies[0].ammount} in Bitcoin,
+        \n ${finalScoreData.cryptoCurrencies[1].ammount} in Dogecoin,
+        \n ${finalScoreData.cryptoCurrencies[2].ammount} in Ripple, and
+        \n ${finalScoreData.cryptoCurrencies[3].ammount} in Etherium`;
+        console.log('renderCrptoscores before return: ', finalScoreMessage);
+        
+        this.finalScoreMessage = finalScoreMessage;
+        
+        
+    })
+}
 
 module.exports = Game;
