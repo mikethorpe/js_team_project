@@ -1,7 +1,5 @@
 const PubSub = require('../helpers/pub_sub');
 
-
-
 const Score = function() {
     this.cryptoConversionFactors = null;
     this.currentScore = 0;

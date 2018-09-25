@@ -1,6 +1,7 @@
 const PubSub = require('../helpers/pub_sub');
 const AnswersView = require ('./answers_view');
 const formatterHelper = require('../helpers/formatHTTPElements.js')
+const ScoreOptionsView = require('../views/score_options_view.js');
 
 const QuestionView = function(container) {
     this.question = null;
@@ -21,6 +22,7 @@ QuestionView.prototype.render = function(){
     questionDiv.textContent = this.question.question;
     this.container.appendChild(questionDiv);
     this.renderAnswers();
+    this.renderScoreOptions();
 }
 
 QuestionView.prototype.renderAnswers = function(){
@@ -29,6 +31,13 @@ QuestionView.prototype.renderAnswers = function(){
     const answersView = new AnswersView(answersDiv, this.question);
     answersView.randomizeAnswers();
     answersView.render();
+}
+
+QuestionView.prototype.renderScoreOptions = function(){
+    const scoreOptionsDiv = document.createElement('div');
+    this.container.appendChild(scoreOptionsDiv);
+    const scoreOptionsView = new ScoreOptionsView(scoreOptionsDiv);
+    scoreOptionsView.render();
 }
 
 module.exports = QuestionView;

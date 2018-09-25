@@ -3,17 +3,22 @@ const ScoreOptionView = require('../views/score_option_view.js')
 
 const ScoreOptionsView = function(container){
     this.container = container;
+    // the container will be question_view so that the options view corresponds to the question it is being called with
+    this.scoreOptions = [{
+        value: 1,
+        currency: "BTC",
+        symbol: "BTC"
+    }];
+    // get this logic from the score model
 }
 
-ScoreOptionsView.prototype.bindEvents = function(){
-    //awaiting event name
-    PubSub.subscribe('???', (event) => {
-        this.render(event.detail);
+ScoreOptionsView.prototype.render = function(){
+    this.scoreOptions.forEach((option) => {
+        const optionDiv = document.createElement('div');
+        this.container.appendChild(optionDiv);
+        const scoreOptionView = new ScoreOptionView(optionDiv, option);
+        scoreOptionView.render();
     })
 }
 
-ScoreOptionsView.prototype.render = function(scoreOptions){
-    this.container.innerHTML = '';
-    const scoreOption = new ScoreOptionView(this.container);
-    scoreOptions.forEach((option) => option.render());
-}
+module.exports = ScoreOptionsView;

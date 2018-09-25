@@ -37,11 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const newGameView = new NewGameView(gameDisplayDiv);
     newGameView.render();
-<<<<<<< HEAD
     
-    const cryptoCurrency = new CryptoCurrency();
-    cryptoCurrency.bindEvents();
-=======
-
->>>>>>> feature/score
 });
