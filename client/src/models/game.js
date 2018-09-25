@@ -1,6 +1,7 @@
 const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
+const Score = require('./score');
 const formatterHelper = require('../helpers/formatHTTPElements.js');
 
 const Game = function() {
@@ -10,7 +11,7 @@ const Game = function() {
     this.maxNumberOfQuestionsInGame = 3;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
-    this.finalScoreMessage;
+    this.score = new Score();
 }
 
 Game.prototype.bindEvents = function(){
@@ -24,7 +25,6 @@ Game.prototype.bindEvents = function(){
         this.setupNewGame(questions);
     });
 
-
     PubSub.subscribe('AnswerView:answer-submitted', (event) => {
         const answerSubmitted = event.detail;
         this.checkAnswer(answerSubmitted);
@@ -32,6 +32,7 @@ Game.prototype.bindEvents = function(){
 }
 
 Game.prototype.newGame = function(){
+    this.score.resetScore();
     PubSub.publish('Game:start-new-game');
 }
 
@@ -64,6 +65,7 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         this.numberOfQuestionsCorrect++;
         PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
         PubSub.publish('Game:correct-answer-submitted')
+        this.score.incrementScore();
         this.checkWinCondition();
     }
     else {
@@ -79,22 +81,16 @@ Game.prototype.endGame = function(){
     console.log("Game ending");    
     if (this.gameWon) {
         const gameOverMessage = 'Congratulations - you won!'
-        this.parseCryptoScore();
-        console.log('right here', this.finalScoreMessage);
-        
-        const winMessage = gameOverMessage + this.finalScoreMessage;
-        const gameOverView = new GameOverView(gameDisplayDiv, winMessage);
+        const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage);
         gameOverView.render();
     }
     else {
         const gameOverMessage = 'Wrong answer - game over!';
         const correctAnswerMessage = `\n The correct answer was: ${this.currentQuestion.correct_answer}`;
-        const scoreMessage = this.parseCryptoScore();
-        const loseMessage = gameOverMessage + correctAnswerMessage + scoreMessage;
+        const loseMessage = gameOverMessage + correctAnswerMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
         gameOverView.render();
     }
-    PubSub.publish('Game:game-ending');
 }
 
 Game.prototype.checkWinCondition = function(){
@@ -105,26 +101,9 @@ Game.prototype.checkWinCondition = function(){
         this.endGame();
     }
     else {
+        console.log('game not won...next question...');
         this.nextQuestion();
     }
-}
-
-Game.prototype.parseCryptoScore = function(){
-    PubSub.subscribe('Score:final-score-data-created', (event) => {
-
-        const finalScoreData = event.detail;
-
-        const finalScoreMessage = `Your final score of £${finalScoreData.finalScore} was worth
-        \n ${finalScoreData.cryptoCurrencies[0].ammount} in Bitcoin,
-        \n ${finalScoreData.cryptoCurrencies[1].ammount} in Dogecoin,
-        \n ${finalScoreData.cryptoCurrencies[2].ammount} in Ripple, and
-        \n ${finalScoreData.cryptoCurrencies[3].ammount} in Etherium`;
-        console.log('renderCrptoscores before return: ', finalScoreMessage);
-        
-        this.finalScoreMessage = finalScoreMessage;
-        
-        
-    })
 }
 
 module.exports = Game;

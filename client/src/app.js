@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreView.bindEvents();    
     
     const score = new Score();
-    score.bindEvents();
+    // score.bindEvents();
 
     const game = new Game();
     game.bindEvents();
