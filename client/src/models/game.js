@@ -49,12 +49,15 @@ Game.prototype.setupNewGame = function(questions){
 }
 
 Game.prototype.nextQuestion = function(){
+    this.currentQuestionNumber++;
     this.currentQuestion = this.questionsArray.pop();
     this.currentQuestion.incorrect_answers = this.currentQuestion.incorrect_answers.map((incorrectAnswer) => {
         return formatterHelper(incorrectAnswer);
     })
     this.currentQuestion.correct_answer = formatterHelper(this.currentQuestion.correct_answer);
+   
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
+    this.score.createScoreOptions(this.currentQuestionNumber);
     console.log(this.currentQuestion);
     console.log(this.currentQuestion.correct_answer);
     

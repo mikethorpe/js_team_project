@@ -19,33 +19,22 @@ Score.prototype.incrementScore = function() {
 Score.prototype.bindEvents = function() {
     PubSub.subscribe('CryptoCurrency:crypto-conversion-data-ready', (event) => {
         this.cryptoConversionFactors = event.detail;        
-        console.log('score conversion factor:', this.cryptoConversionFactors);
     })
-}
-
-Score.prototype.populateScoreOptionsArray = function(){
-    
 }
 
 Score.prototype.resetScore = function() {
     this.runningTotalGBP = 0;
 }
 
-
-
-/////////////////////
-
-Score.prototype.createScoreOptions = function(questionIndex){
-    const questionGbpValue = this.questionGbpValues[questionIndex];
+Score.prototype.createScoreOptions = function(currentQuestionNumber){
+    const questionGbpValue = questionGbpValues[currentQuestionNumber-1];
 
     const bitcoinObject = this.createScoreOption('Bitcoin', 'BTC', questionGbpValue);
     const etheriumObject = this.createScoreOption('Etherium', 'ETH', questionGbpValue);
     const dogecoinObject = this.createScoreOption('Dogecoin', 'DOGE', questionGbpValue);
     const rippleObject = this.createScoreOption('Ripple', 'XRP', questionGbpValue);
     const scoreOptions = [bitcoinObject, etheriumObject, dogecoinObject, rippleObject];
-    console.log(bitcoinObject);
     PubSub.publish('Score:score-options-for-question', scoreOptions);
-
 }
 
 Score.prototype.createScoreOption = function(currency, symbol, questionGbpValue){
@@ -62,15 +51,5 @@ Score.prototype.convertCryptoScoreIntoGBP = function(currency, score){
     const cryptoConversionFactor = this.cryptoConversionFactors[currency].GBP;
     return this.convertedBTCScore = (score / cryptoConversionFactor);
 }
-
-
-
-
-
-
-
-
-//////////////
-
 
 module.exports = Score;
