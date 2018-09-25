@@ -7,13 +7,17 @@ const CryptoCurrency = function (){
 }
 
 CryptoCurrency.prototype.bindEvents = function(){
-    this.getData();
+    PubSub.subscribe('Game:start-new-game', () => {
+        this.getData();
+    });
 }
 
 CryptoCurrency.prototype.getData = function(){
     this.request.get()
     .then((cryptoResponse) => {
-        console.log(cryptoResponse);
+        console.log('Crypto API data loaded',cryptoResponse);
+        //cryptoResponse is a json with properties BTC, which is also an object
+        //BTC is a json with property GBP, which is a numberType
         PubSub.publish('CryptoCurrency:crypto-conversion-data-ready', cryptoResponse);
         
     })

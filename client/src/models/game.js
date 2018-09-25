@@ -23,6 +23,7 @@ Game.prototype.bindEvents = function(){
         this.setupNewGame(questions);
     });
 
+
     PubSub.subscribe('AnswerView:answer-submitted', (event) => {
         const answerSubmitted = event.detail;
         this.checkAnswer(answerSubmitted);
@@ -35,6 +36,7 @@ Game.prototype.newGame = function(){
 
 Game.prototype.setupNewGame = function(questions){
     console.log("Setting up new game...");
+
     this.numberOfQuestionsCorrect = 0;
     this.currentQuestionNumber = 0;
     this.gameWon = false;
