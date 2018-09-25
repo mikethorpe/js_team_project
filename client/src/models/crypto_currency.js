@@ -14,11 +14,11 @@ CryptoCurrency.prototype.bindEvents = function(){
 
 CryptoCurrency.prototype.getData = function(){
     this.request.get()
-    .then((cryptoResponse) => {
-        console.log('Crypto API data loaded',cryptoResponse);
-        //cryptoResponse is a json with properties BTC, which is also an object
+    .then((cryptoConversionFactors) => {
+        console.log('Crypto API data loaded',cryptoConversionFactors);
+        //cryptoConversionFactors is a json with properties BTC, which is also an object
         //BTC is a json with property GBP, which is a numberType
-        PubSub.publish('CryptoCurrency:crypto-conversion-data-ready', cryptoResponse);
+        PubSub.publish('CryptoCurrency:crypto-conversion-data-ready', cryptoConversionFactors);
         
     })
     .catch(console.error);

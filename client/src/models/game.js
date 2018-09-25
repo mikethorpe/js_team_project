@@ -29,9 +29,11 @@ Game.prototype.bindEvents = function(){
         const answerSubmitted = event.detail;
         this.checkAnswer(answerSubmitted);
     });
+
 }
 
 Game.prototype.newGame = function(){
+    this.score.bindEvents();
     this.score.resetScore();
     PubSub.publish('Game:start-new-game');
 }
