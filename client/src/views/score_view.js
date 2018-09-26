@@ -1,20 +1,12 @@
 const PubSub = require('../helpers/pub_sub.js');
 
-const ScoreView = function (container){
+const ScoreView = function (container, runningTotalGBP){
     this.container = container;
-    this.runningTotalGBP = null;
-}
-
-ScoreView.prototype.bindEvents = function (){
-    PubSub.subscribe('Score:score-updated', (event) => {
-        this.runningTotalGBP = event.detail;
-        this.render();
-    });
+    this.runningTotalGBP = runningTotalGBP;
 }
 
 ScoreView.prototype.render = function (){
     console.log('rendering score');
-    this.container.innerHTML = '';
     const currentScoreElement = document.createElement('p');
     currentScoreElement.textContent = this.runningTotalGBP;    
     this.container.appendChild(currentScoreElement);   

@@ -63,6 +63,8 @@ Score.prototype.bindEvents = function() {
 
 Score.prototype.resetScore = function() {
     this.runningTotalGBP = 0;
+    PubSub.publish('Score:score-updated', this.runningTotalGBP);
+
 }
 
 Score.prototype.createScoreOptions = function(currentQuestionNumber){
