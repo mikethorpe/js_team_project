@@ -12,7 +12,7 @@ button {
         transition-duration: 0.4s;
 }
 
-.button:hover {
+button:hover {
     background-color: #4D7393; /* Green */
     color: white;
 }
