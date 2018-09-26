@@ -1,7 +1,7 @@
 const PubSub = require('../helpers/pub_sub');
 
-const ModalNotificationView = function (container) {
-    this.container = container;
+const ModalNotificationView = function () {
+    this.container = null;;
     this.notificationDiv = null;
     this.notificationDetail = null;
 }
@@ -21,9 +21,11 @@ ModalNotificationView.prototype.bindEvents = function() {
     });
 }
 
-ModalNotificationView.prototype.render = function() {    
-    this.container.innerHTML = '';
+ModalNotificationView.prototype.render = function() {   
+    this.container = document.querySelector('body'); 
     this.notificationDiv = document.createElement('div');
+    this.notificationDiv.className = 'notification_div'
+    this.notificationDiv.style.display = 'none';
     this.container.appendChild(this.notificationDiv);
 }
 

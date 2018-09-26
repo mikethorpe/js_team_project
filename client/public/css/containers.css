@@ -1,7 +1,8 @@
 #game_display {
     width: 80%;
-    height: auto;
+    height: 50%;
     border-style: solid;
+    margin: auto;
 
 }
 
@@ -10,15 +11,15 @@
     border-style: solid;
     border-color: blue;
 }
+
 .question_div {
     border-style: solid;
     border-color: green;
 }
 .answers_div {
+    padding: 30px;
     display: grid;
-    /* grid-template-columns: 2fr 1f; */
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    /* grid-template-columns: repeat(auto-fit, minmax(500px, 2fr) minmax(500px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     border-style: solid;
     border-color: green;
 }
@@ -26,13 +27,13 @@
 .answer_div {
     border-style: solid;
     border-color: blue;
+    margin: auto;
 }
 
 .score_options_div {
+    padding: 30px;
     display: grid;
-    /* grid-template-columns: 2fr 1f; */
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    /* grid-template-columns: repeat(auto-fit, minmax(500px, 2fr) minmax(500px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     border-style: solid;
     border-color: green;
 }
@@ -40,9 +41,24 @@
 .score_option_div {
     border-style: solid;
     border-color: blue;
+    margin: auto;
+
 }
 
 .score_div {
     border-style: solid;
     border-color: green;
+}
+
+.notification_div {
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    margin: auto;
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    height: 15%;
+    overflow: auto;
+    background-color: #fefefe;
 }
