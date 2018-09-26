@@ -16,7 +16,7 @@ ScoreView.prototype.render = function (){
     console.log('rendering score');
     this.container.innerHTML = '';
     const currentScoreElement = document.createElement('p');
-    currentScoreElement.textContent = this.runningTotalGBP;    
+    currentScoreElement.textContent = Math.trunc(this.runningTotalGBP);    
     this.container.appendChild(currentScoreElement);   
 }
 

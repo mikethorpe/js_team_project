@@ -69,7 +69,7 @@ Game.prototype.checkAnswer = function(answerSubmitted){
     if (correctAnswer == answerSubmitted) {
         this.numberOfQuestionsCorrect++;
         const gbpValueOfAnswer = this.score.convertChosenCryptoIntoGBPScore(this.currentQuestionNumber);
-        PubSub.publish('Game:render-notification', { message: 'Correct Answer!, that was worth ' +  gbpValueOfAnswer});
+        PubSub.publish('Game:render-notification', { message: 'Correct Answer!, that was worth ' +  Math.trunc(gbpValueOfAnswer)});
         PubSub.publish('Game:correct-answer-submitted')
         this.score.incrementScore(this.currentQuestionNumber);
         this.checkWinCondition();
