@@ -1,8 +1,31 @@
+#game_display {
+    width: 80%;
+    height: auto;
+    border-style: solid;
+
+}
+
+.question_answers_options_div {
+    height: auto;
+    border-style: solid;
+    border-color: blue;
+}
+.question_div {
+    border-style: solid;
+    border-color: green;
+}
 .answers_div {
     display: grid;
     /* grid-template-columns: 2fr 1f; */
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     /* grid-template-columns: repeat(auto-fit, minmax(500px, 2fr) minmax(500px, 1fr)); */
+    border-style: solid;
+    border-color: green;
+}
+
+.answer_div {
+    border-style: solid;
+    border-color: blue;
 }
 
 .score_options_div {
@@ -10,4 +33,11 @@
     /* grid-template-columns: 2fr 1f; */
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     /* grid-template-columns: repeat(auto-fit, minmax(500px, 2fr) minmax(500px, 1fr)); */
+    border-style: solid;
+    border-color: green;
+}
+
+.score_option_div {
+    border-style: solid;
+    border-color: blue;
 }

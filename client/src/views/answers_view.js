@@ -17,6 +17,7 @@ AnswersView.prototype.randomizeAnswers = function() {
 AnswersView.prototype.render = function(){
     this.allAnswers.forEach( (answer) => {
         const answerDiv = document.createElement('div');
+        answerDiv.className = 'answer_div'
         this.container.appendChild(answerDiv);
         const answerView = new AnswerView(answerDiv, answer);
         answerView.render();
