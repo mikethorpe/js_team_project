@@ -6,6 +6,11 @@ const NewGameView = function(container){
 
 NewGameView.prototype.render = function(){
     this.container.innerHTML = '';
+
+    const title = document.createElement('h1');
+    title.textContent = 'Smart Duck';
+    this.container.appendChild(title);
+
     const newGameButton = document.createElement('button');
     newGameButton.innerHTML = 'New game';
     newGameButton.className = 'new_game_button';
