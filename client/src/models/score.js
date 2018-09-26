@@ -113,13 +113,21 @@ Score.prototype.convertChosenCryptoIntoGBPScore = function (currentQuestionNumbe
 
 Score.prototype.returnGameOverData = function () {
     const truncatedScore = Math.trunc(this.runningTotalGBP);
-    const endgameData = `
-        \n Your score of ${truncatedScore} pounds is worth:
-        \n ${(this.runningTotalGBP / this.cryptoConversionFactors['BTC'].GBP).toFixed(4)} in Bitcoin.
-        \n ${(this.runningTotalGBP / this.cryptoConversionFactors['ETH'].GBP).toFixed(4)} in Etherium.
-        \n ${(this.runningTotalGBP / this.cryptoConversionFactors['DOGE'].GBP).toFixed(4)} in Dogecoin.
-        \n ${(this.runningTotalGBP / this.cryptoConversionFactors['XRP'].GBP).toFixed(4)} in Ripple.
-        `
+
+    const bitcoinScore = (this.runningTotalGBP / this.cryptoConversionFactors['BTC'].GBP).toFixed(4);
+    const etheriumScore = (this.runningTotalGBP / this.cryptoConversionFactors['ETH'].GBP).toFixed(4);
+    const dogecoinScore = (this.runningTotalGBP / this.cryptoConversionFactors['DOGE'].GBP).toFixed(4);
+    const rippleScore = (this.runningTotalGBP / this.cryptoConversionFactors['XRP'].GBP).toFixed(4);
+
+    const cryptoCurrencyScore = [bitcoinScore, etheriumScore, dogecoinScore, rippleScore];
+    const cryptoCurrencyReadableName = ['bitcoin', 'etherium', 'dogecoin', 'ripple'];
+
+    const endgameData = {
+        score: truncatedScore,
+        cryptoCurrencyScore: cryptoCurrencyScore,
+        cryptoCurrencyReadableName: cryptoCurrencyReadableName
+    }
+
     return endgameData
 }
 module.exports = Score;

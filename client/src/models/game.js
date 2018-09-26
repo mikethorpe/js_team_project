@@ -85,17 +85,17 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 Game.prototype.endGame = function(){
     const gameDisplayDiv = document.querySelector('#game_display'); 
     console.log("Game ending");    
-    const cryptoOverviewMessage = this.score.returnGameOverData();
+    const cryptoOverviewData = this.score.returnGameOverData();
     if (this.gameWon) {
-        const gameOverMessage = 'Congratulations - you won!' + cryptoOverviewMessage;
-        const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage);
+        const gameOverMessage = 'Congratulations - you won!';
+        const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage, cryptoOverviewData);
         gameOverView.render();
     }
     else {
         const gameOverMessage = 'Wrong answer - game over!';
         const correctAnswerMessage = `\n The correct answer was: ${this.currentQuestion.correct_answer}`;
-        const loseMessage = gameOverMessage + correctAnswerMessage + cryptoOverviewMessage;
-        const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
+        const loseMessage = gameOverMessage + correctAnswerMessage;
+        const gameOverView = new GameOverView(gameDisplayDiv, loseMessage, cryptoOverviewData);
         gameOverView.render();
     }
 }
