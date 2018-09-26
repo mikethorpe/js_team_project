@@ -16,12 +16,12 @@ GameOverView.prototype.render = function () {
     gameOverContainer.appendChild(gameOverMessageParagraph);
 
     if (this.correctAnswerMessage) {
-        const correctAnswerMessage = document.createElement('p');
+        const correctAnswerMessage = document.createElement('h2');
         correctAnswerMessage.textContent = this.correctAnswerMessage;
         gameOverContainer.appendChild(correctAnswerMessage);
     }
 
-    const finalScoreMessageInPounds = document.createElement('p');
+    const finalScoreMessageInPounds = document.createElement('h2');
     finalScoreMessageInPounds.textContent = `Your score of £${this.cryptoOverviewData.score} was worth:`;
     gameOverContainer.appendChild(finalScoreMessageInPounds);
 
@@ -31,7 +31,6 @@ GameOverView.prototype.render = function () {
         gameOverContainer.appendChild(finalScoreMessageInCrypto);
     }
     this.container.appendChild(gameOverContainer);
-
 
 
     // this.container.innerHTML = this.message;
