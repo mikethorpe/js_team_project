@@ -114,7 +114,7 @@ Score.prototype.convertChosenCryptoIntoGBPScore = function (currentQuestionNumbe
 Score.prototype.returnGameOverData = function () {
     const truncatedScore = Math.trunc(this.runningTotalGBP);
     const endgameData = `
-        \n You score of ${truncatedScore} is worth:
+        \n Your score of ${truncatedScore} pounds is worth:
         \n ${(this.runningTotalGBP / this.cryptoConversionFactors['BTC'].GBP).toFixed(4)} in Bitcoin.
         \n ${(this.runningTotalGBP / this.cryptoConversionFactors['ETH'].GBP).toFixed(4)} in Etherium.
         \n ${(this.runningTotalGBP / this.cryptoConversionFactors['DOGE'].GBP).toFixed(4)} in Dogecoin.

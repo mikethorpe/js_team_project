@@ -9,6 +9,13 @@ const ScoreOptionsView = function(container, scoreOptionsArray){
 }
 
 ScoreOptionsView.prototype.render = function(){
+    const optionHeaderDiv = document.createElement('div')
+    optionHeaderDiv.classList.add('option-header');
+    const optionHeaderParagraph = document.createElement('p');
+    optionHeaderParagraph.textContent = 'Select your crypto-currency:';
+    optionHeaderDiv.appendChild(optionHeaderParagraph);
+    this.container.appendChild(optionHeaderDiv);
+
     this.scoreOptionsArray.forEach((option) => {
         const optionDiv = document.createElement('div');
         optionDiv.className = 'score_option_div';

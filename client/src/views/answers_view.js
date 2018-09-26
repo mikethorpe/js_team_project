@@ -15,6 +15,13 @@ AnswersView.prototype.randomizeAnswers = function() {
 }
 
 AnswersView.prototype.render = function(){
+    const optionHeaderDiv = document.createElement('div')
+    optionHeaderDiv.classList.add('option-header');
+    const optionHeaderParagraph = document.createElement('p');
+    optionHeaderParagraph.textContent = 'Select your answer:';
+    optionHeaderDiv.appendChild(optionHeaderParagraph);
+    this.container.appendChild(optionHeaderDiv);
+
     this.allAnswers.forEach( (answer) => {
         const answerDiv = document.createElement('div');
         answerDiv.className = 'answer_div'
