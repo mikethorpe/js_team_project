@@ -1,7 +1,8 @@
 #game_display {
     width: 80%;
-    height: auto;
+    height: 50%;
     border-style: solid;
+    margin: auto;
 
 }
 
@@ -10,6 +11,7 @@
     border-style: solid;
     border-color: blue;
 }
+
 .question_div {
     border-style: solid;
     border-color: green;
@@ -26,6 +28,7 @@
 .answer_div {
     border-style: solid;
     border-color: blue;
+    margin: auto;
 }
 
 .score_options_div {
@@ -40,9 +43,24 @@
 .score_option_div {
     border-style: solid;
     border-color: blue;
+    margin: auto;
+
 }
 
 .score_div {
     border-style: solid;
     border-color: green;
+}
+
+.notification_div {
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    margin: auto;
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    height: 15%;
+    overflow: auto;
+    background-color: #fefefe;
 }
