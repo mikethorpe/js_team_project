@@ -10,7 +10,7 @@ ScoreOptionView.prototype.render = function(){
     const optionButton = document.createElement('button');
     
     optionButton.className = 'score_option_button'
-    optionButton.innerHTML = `${this.option.staticAmount}${this.option.symbol}`;  
+    optionButton.innerHTML = `${this.option.symbol}: ${this.option.staticAmount}`;  
     optionButton.addEventListener('click', () => {
         PubSub.publish('ScoreOptionView:option-submitted', this.option);
     });
