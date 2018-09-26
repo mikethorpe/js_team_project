@@ -11,6 +11,7 @@ const ScoreOptionsView = function(container, scoreOptionsArray){
 ScoreOptionsView.prototype.render = function(){
     this.scoreOptionsArray.forEach((option) => {
         const optionDiv = document.createElement('div');
+        optionDiv.className = 'score_option_div';
         this.container.appendChild(optionDiv);
         const scoreOptionView = new ScoreOptionView(optionDiv, option);
         scoreOptionView.render();

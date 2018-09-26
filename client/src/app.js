@@ -21,11 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const scoreDiv = document.querySelector('div#score');
     const scoreView = new ScoreView(scoreDiv);
-    scoreView.bindEvents();    
     
-    const score = new Score();
-    // score.bindEvents();
-
     const game = new Game();
     game.bindEvents();
 
