@@ -7,6 +7,7 @@ const QuestionView = function(container) {
     this.question = null;
     this.scoreOptions = null;
     this.container = container;
+    this.questionAnswersOptionsDiv = null;
 }
 
 QuestionView.prototype.bindEvents = function(){
@@ -38,18 +39,23 @@ QuestionView.prototype.bindEvents = function(){
 
 QuestionView.prototype.render = function(){
     this.container.innerHTML = '';
+    this.questionAnswersOptionsDiv = document.createElement('div');
+    this.questionAnswersOptionsDiv.className = 'question_answers_options_div'
+    this.container.appendChild(this.questionAnswersOptionsDiv);
     const questionDiv = document.createElement('div');
+    questionDiv.className = 'question_div'
+    this.questionAnswersOptionsDiv.appendChild(questionDiv);
+
     this.question.question = formatterHelper(this.question.question);
     questionDiv.textContent = this.question.question;
-    this.container.appendChild(questionDiv);
     this.renderAnswers();
     this.renderScoreOptions();
 }
 
 QuestionView.prototype.renderAnswers = function(){
     const answersDiv = document.createElement('div');
-    answersDiv.className = 'answers_div'
-    this.container.appendChild(answersDiv);
+    answersDiv.className = 'answers_div';
+    this.questionAnswersOptionsDiv.appendChild(answersDiv);
     const answersView = new AnswersView(answersDiv, this.question);
     answersView.randomizeAnswers();
     answersView.render();
@@ -58,7 +64,7 @@ QuestionView.prototype.renderAnswers = function(){
 QuestionView.prototype.renderScoreOptions = function(){
     const scoreOptionsDiv = document.createElement('div');
     scoreOptionsDiv.className = 'score_options_div';
-    this.container.appendChild(scoreOptionsDiv);
+    this.questionAnswersOptionsDiv.appendChild(scoreOptionsDiv);
     const scoreOptionsView = new ScoreOptionsView(scoreOptionsDiv, this.scoreOptions);
     scoreOptionsView.render();
 }
