@@ -1,10 +1,10 @@
 button {
     display: block;
     margin: 10px;
-    height: 50px;
+    height: 100px;
     width: 200px;
-    border: none;
-    background-color: #e7e7e7;
+    border: solid;
+    background-color: #ffd700;
     color: black;
     padding: 8px 15px;
     text-align: center;

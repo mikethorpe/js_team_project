@@ -29,7 +29,7 @@ ScoreOptionView.prototype.render = function(){
 ScoreOptionView.prototype.resetOptionButtonsStyle = function () {
     const optionButtons = document.querySelectorAll('.score_option_div button');
     optionButtons.forEach( (optionButton) => {
-        optionButton.style.backgroundColor = '#e7e7e7';
+        optionButton.style.backgroundColor = '#ffd700';
         
     })
 }

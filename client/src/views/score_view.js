@@ -8,7 +8,7 @@ const ScoreView = function (container, runningTotalGBP){
 ScoreView.prototype.render = function (){
     console.log('rendering score');
     const currentScoreElement = document.createElement('p');
-    currentScoreElement.textContent = '£' + Math.trunc(this.runningTotalGBP);    
+    currentScoreElement.textContent = 'Score: £' + Math.trunc(this.runningTotalGBP);    
     this.container.appendChild(currentScoreElement);   
 }
 
