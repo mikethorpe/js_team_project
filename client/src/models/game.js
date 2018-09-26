@@ -70,7 +70,7 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         this.numberOfQuestionsCorrect++;
         PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
         PubSub.publish('Game:correct-answer-submitted')
-        this.score.incrementScore();
+        this.score.incrementScore(this.currentQuestionNumber);
         this.checkWinCondition();
     }
     else {
