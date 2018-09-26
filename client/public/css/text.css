@@ -4,6 +4,14 @@ h1 {
     margin: 10px;
 }
 
+h2 {
+    margin: 10px;
+}
+
+h3 {
+    margin: 5px;
+}
+
 p {
     margin: 15px;
     display: block;

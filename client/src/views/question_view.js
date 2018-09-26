@@ -55,7 +55,11 @@ QuestionView.prototype.render = function(){
     this.questionAnswersOptionsDiv.appendChild(questionDiv);
 
     this.question.question = formatterHelper(this.question.question);
-    questionDiv.textContent = this.question.question;
+    // questionDiv.textContent = this.question.question;
+
+    const questionText = document.createElement('h2');
+    questionText.textContent = this.question.question;
+    questionDiv.appendChild(questionText)
     this.renderAnswers();
 
 
@@ -64,7 +68,7 @@ QuestionView.prototype.render = function(){
 
 QuestionView.prototype.renderAnswers = function(){
 
-    const questionHeaderParagraph = document.createElement('p');
+    const questionHeaderParagraph = document.createElement('h3');
     questionHeaderParagraph.textContent = 'Select your answer:';
     this.questionAnswersOptionsDiv.appendChild(questionHeaderParagraph);
 
@@ -80,7 +84,7 @@ QuestionView.prototype.renderAnswers = function(){
 
 QuestionView.prototype.renderScoreOptions = function(){
    
-    const optionHeaderParagraph = document.createElement('p');
+    const optionHeaderParagraph = document.createElement('h3');
     optionHeaderParagraph.textContent = 'Select your crypto-currency:';
     this.questionAnswersOptionsDiv.appendChild(optionHeaderParagraph);
 

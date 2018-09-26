@@ -1,53 +1,63 @@
 #game_display {
     width: 80%;
     height: 50%;
-    border-style: solid;
     margin: auto;
     text-align: center;
+
+    /* debugging */
+    border-style: solid;
+
 }
 
 .question_answers_options_div {
     height: auto;
+    /* debugging
     border-style: solid;
-    border-color: blue;
+    border-color: blue; */
 }
 
 .question_div {
+    /* debugging
     border-style: solid;
-    border-color: green;
+    border-color: green; */
 }
 .answers_div {
     padding: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* debugging
     border-style: solid;
-    border-color: green;
+    border-color: green; */
 }
 
 .answer_div {
-    border-style: solid;
-    border-color: blue;
     margin: auto;
+    /* debugging
+    border-style: solid;
+    border-color: blue; */
 }
 
 .score_options_div {
     padding: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* debugging
     border-style: solid;
-    border-color: green;
+    border-color: green; */
 }
 
 .score_option_div {
-    border-style: solid;
-    border-color: blue;
     margin: auto;
+    /* debugging    
+    border-style: solid;
+    border-color: blue; */
 
 }
 
 .score_div {
+    /* debugging
     border-style: solid;
-    border-color: green;
+    border-color: green; */
 }
 
 .notification_div {
