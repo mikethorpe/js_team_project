@@ -1,0 +1,18 @@
+button {
+    border: none;
+    background-color: #e7e7e7;
+    color: black;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /* border-radius: 8px; */
+    -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #4D7393; /* Green */
+    color: white;
+}

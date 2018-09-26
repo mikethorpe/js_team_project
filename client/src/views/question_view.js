@@ -48,6 +48,7 @@ QuestionView.prototype.render = function(){
 
 QuestionView.prototype.renderAnswers = function(){
     const answersDiv = document.createElement('div');
+    answersDiv.className = 'answers_div'
     this.container.appendChild(answersDiv);
     const answersView = new AnswersView(answersDiv, this.question);
     answersView.randomizeAnswers();
@@ -56,6 +57,7 @@ QuestionView.prototype.renderAnswers = function(){
 
 QuestionView.prototype.renderScoreOptions = function(){
     const scoreOptionsDiv = document.createElement('div');
+    scoreOptionsDiv.className = 'score_options_div';
     this.container.appendChild(scoreOptionsDiv);
     const scoreOptionsView = new ScoreOptionsView(scoreOptionsDiv, this.scoreOptions);
     scoreOptionsView.render();

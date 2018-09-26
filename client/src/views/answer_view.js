@@ -7,6 +7,7 @@ const AnswerView = function(container, answer){
 
 AnswerView.prototype.render = function(){
     const answerButton = document.createElement('button');
+    answerButton.className = 'answer_button'
     answerButton.innerHTML = this.answer;    
     answerButton.addEventListener('click', (event) => {
         const answerText = event.target.textContent;
