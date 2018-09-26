@@ -68,7 +68,8 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 
     if (correctAnswer == answerSubmitted) {
         this.numberOfQuestionsCorrect++;
-        PubSub.publish('Game:render-notification', { message: 'Correct Answer!' })
+        const gbpValueOfAnswer = this.score.convertChosenCryptoIntoGBPScore(this.currentQuestionNumber);
+        PubSub.publish('Game:render-notification', { message: 'Correct Answer!, that was worth ' +  Math.trunc(gbpValueOfAnswer)});
         PubSub.publish('Game:correct-answer-submitted')
         this.score.incrementScore(this.currentQuestionNumber);
         this.checkWinCondition();
@@ -84,15 +85,16 @@ Game.prototype.checkAnswer = function(answerSubmitted){
 Game.prototype.endGame = function(){
     const gameDisplayDiv = document.querySelector('#game_display'); 
     console.log("Game ending");    
+    const cryptoOverviewMessage = this.score.returnGameOverData();
     if (this.gameWon) {
-        const gameOverMessage = 'Congratulations - you won!'
+        const gameOverMessage = 'Congratulations - you won!' + cryptoOverviewMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage);
         gameOverView.render();
     }
     else {
         const gameOverMessage = 'Wrong answer - game over!';
         const correctAnswerMessage = `\n The correct answer was: ${this.currentQuestion.correct_answer}`;
-        const loseMessage = gameOverMessage + correctAnswerMessage;
+        const loseMessage = gameOverMessage + correctAnswerMessage + cryptoOverviewMessage;
         const gameOverView = new GameOverView(gameDisplayDiv, loseMessage);
         gameOverView.render();
     }

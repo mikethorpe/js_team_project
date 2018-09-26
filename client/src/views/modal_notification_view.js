@@ -41,7 +41,7 @@ ModalNotificationView.prototype.display = function() {
     });
 
     // Disappear the notification after timeout (ms)
-    const notificationTimeout = 20000000;
+    const notificationTimeout = 3000;
     setTimeout( 
         () => { 
             this.notificationDiv.style.display = 'none'; 
