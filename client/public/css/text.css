@@ -1,3 +1,9 @@
 h1 {
-    margin: auto;
+    text-align: center;
+    display: block;
+    margin: 10px;
+}
+
+p {
+
 }

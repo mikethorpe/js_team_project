@@ -11,6 +11,17 @@ NewGameView.prototype.render = function(){
     title.textContent = 'Smart Duck';
     this.container.appendChild(title);
 
+    const duckImageNewGame = document.createElement('img');
+    duckImageNewGame.src = '/images/duck_image_new_game.jpg';
+    duckImageNewGame.id = 'duck_image_new_game';
+    this.container.appendChild(duckImageNewGame);
+
+
+    const poweredByParagraph = document.createElement('p');
+    poweredByParagraph.textContent = "Smart Duck is powered by The Open Trivia API & CryptoCompare.com";
+    this.container.appendChild(poweredByParagraph);
+
+
     const newGameButton = document.createElement('button');
     newGameButton.innerHTML = 'New game';
     newGameButton.className = 'new_game_button';
