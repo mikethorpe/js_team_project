@@ -5,5 +5,10 @@ h1 {
 }
 
 p {
+    margin: 15px;
+    display: block;
+}
 
+#game_over_message_paragraph {
+    font-style: bold;
 }

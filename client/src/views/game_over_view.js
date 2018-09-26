@@ -11,7 +11,7 @@ GameOverView.prototype.render = function () {
     this.container.innerHTML = '';
     const gameOverContainer = document.createElement('div');
 
-    const gameOverMessageParagraph = document.createElement('p');
+    const gameOverMessageParagraph = document.createElement('h1');
     gameOverMessageParagraph.textContent = this.message;
     gameOverContainer.appendChild(gameOverMessageParagraph);
 

@@ -87,12 +87,12 @@ Game.prototype.endGame = function(){
     console.log("Game ending");    
     const cryptoOverviewData = this.score.returnGameOverData();
     if (this.gameWon) {
-        const gameOverMessage = 'Congratulations - you won!';
+        const gameOverMessage = 'Congratulations...you won, you smart little ducky!';
         const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage, cryptoOverviewData);
         gameOverView.render();
     }
     else {
-        const gameOverMessage = 'Wrong answer - game over!';
+        const gameOverMessage = 'Game Over!';
         const correctAnswerMessage = `The correct answer was: ${this.currentQuestion.correct_answer}`;
         const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage, cryptoOverviewData, correctAnswerMessage);
         gameOverView.render();
