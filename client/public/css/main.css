@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'futura';
+    font-weight: lighter;
+}
+
+/* hide scrollbars */
+::-webkit-scrollbar {
+    display: none;
+    }

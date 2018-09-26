@@ -8,6 +8,7 @@ NewGameView.prototype.render = function(){
     this.container.innerHTML = '';
     const newGameButton = document.createElement('button');
     newGameButton.innerHTML = 'New game';
+    newGameButton.className = 'new_game_button';
     this.container.appendChild(newGameButton);
    
     newGameButton.addEventListener('click', () => {
