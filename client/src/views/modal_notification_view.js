@@ -34,14 +34,19 @@ ModalNotificationView.prototype.display = function() {
     const notifcationDetailKeys = Object.keys(this.notificationDetail);
     
     notifcationDetailKeys.forEach( (key) => {          
-        const notificationInfo = document.createElement('div');
+        const notificationInfo = document.createElement('h2');
         notificationInfo.textContent = this.notificationDetail[key];
         this.notificationDiv.appendChild(notificationInfo);
         this.notificationDiv.style.display = 'block';
     });
 
+    const duckImageNotification = document.createElement('img');
+    duckImageNotification.src = '/images/duck_image_notification.jpg';
+    duckImageNotification.id = 'duck_image_notifcation';
+    this.notificationDiv.appendChild(duckImageNotification);
+
     // Disappear the notification after timeout (ms)
-    const notificationTimeout = 3000;
+    const notificationTimeout = 20000000;
     setTimeout( 
         () => { 
             this.notificationDiv.style.display = 'none'; 

@@ -4,6 +4,10 @@
     font-family: 'futura';
     font-weight: lighter;
 }
+html {
+    background-image: url('/images/just-waves.png');
+
+}
 
 /* hide scrollbars */
 ::-webkit-scrollbar {

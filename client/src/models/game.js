@@ -8,7 +8,7 @@ const Game = function() {
     this.questionsArray = null;
     this.currentQuestion = null;
     this.currentQuestionNumber = 0;
-    this.maxNumberOfQuestionsInGame = 3;
+    this.maxNumberOfQuestionsInGame = 12;
     this.numberOfQuestionsCorrect = 0;
     this.gameWon = false;
     this.score = new Score();
@@ -87,13 +87,13 @@ Game.prototype.endGame = function(){
     console.log("Game ending");    
     const cryptoOverviewData = this.score.returnGameOverData();
     if (this.gameWon) {
-        const gameOverMessage = 'Congratulations...you won, you smart little ducky!';
+        const gameOverMessage = 'Congratulations - you won, you smart little ducky!';
         const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage, cryptoOverviewData);
         gameOverView.render();
     }
     else {
         const gameOverMessage = 'Game Over!';
-        const correctAnswerMessage = `The correct answer was: ${this.currentQuestion.correct_answer}`;
+        const correctAnswerMessage = `That was quackers! The correct answer was: ${this.currentQuestion.correct_answer}`;
         const gameOverView = new GameOverView(gameDisplayDiv, gameOverMessage, cryptoOverviewData, correctAnswerMessage);
         gameOverView.render();
     }

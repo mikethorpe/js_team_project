@@ -4,5 +4,10 @@ img {
 }
 
 #duck_image_new_game {
-    width: 80%;
+    /* width: minmax(150px, 500px); */
+    width: 60%;
+}
+
+#duck_image_notifcation {
+    width: 100%;
 }

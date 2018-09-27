@@ -5,7 +5,7 @@
     text-align: center;
 
     /* debugging */
-    border-style: solid;
+    /* border-style: solid; */
 
 }
 
@@ -60,15 +60,21 @@
     border-color: green; */
 }
 
+
 .notification_div {
+    max-height: 440px;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    max-width: 580px;
     margin: auto;
     position: absolute;
-    top: 5%;
-    left: 30%;
-    height: 15%;
+    top: 10%;
+    left: 5%;
+    right: 5%;
     overflow: auto;
     background-color: #fefefe;
 }
+
+
+
+
