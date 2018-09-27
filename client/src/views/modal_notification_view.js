@@ -46,7 +46,7 @@ ModalNotificationView.prototype.display = function() {
     this.notificationDiv.appendChild(duckImageNotification);
 
     // Disappear the notification after timeout (ms)
-    const notificationTimeout = 20000000;
+    const notificationTimeout = 2300;
     setTimeout( 
         () => { 
             this.notificationDiv.style.display = 'none'; 
