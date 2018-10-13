@@ -45,10 +45,8 @@ const questionRippleValues = [
 
 Score.prototype.incrementScore = function (currentQuestionNumber) {
     this.currentQuestionNumber++;
-    console.log('last questions chosen option', this.currentScoreOption);
     this.runningTotalGBP += this.convertChosenCryptoIntoGBPScore(currentQuestionNumber);
     PubSub.publish('Score:score-updated', this.runningTotalGBP);
-    console.log('Current running total score GBP: ', this.runningTotalGBP);
 }
 
 Score.prototype.bindEvents = function () {
@@ -98,7 +96,6 @@ Score.prototype.createScoreOption = function (currency, symbol, staticCryptoValu
 
 Score.prototype.convertChosenCryptoIntoGBPScore = function (currentQuestionNumber) {
     const cryptoToGBPConversionFactor = this.cryptoConversionFactors[this.currentScoreOption.symbol].GBP;
-    console.log('crypto conversion factor', cryptoToGBPConversionFactor);
     switch (this.currentScoreOption.symbol) {
         case 'BTC':
             return (cryptoToGBPConversionFactor * questionBitcoinValues[currentQuestionNumber - 1])

@@ -14,7 +14,6 @@ ModalNotificationView.prototype.bindEvents = function() {
 
     // Disappears the notification view when the window is clicked
     window.addEventListener('click', (event) => {
-        console.log('window listener', event.target.nodeName);
         if (event.target != this.notificationDiv && event.target.nodeName != 'BUTTON') {
             this.notificationDiv.style.display = 'none';
         }

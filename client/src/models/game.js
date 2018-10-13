@@ -40,7 +40,6 @@ Game.prototype.newGame = function(){
 
 Game.prototype.setupNewGame = function(questions){
     console.log("Setting up new game...");
-
     this.numberOfQuestionsCorrect = 0;
     this.currentQuestionNumber = 0;
     this.gameWon = false;
@@ -58,8 +57,7 @@ Game.prototype.nextQuestion = function(){
    
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     this.score.createScoreOptions(this.currentQuestionNumber);
-    console.log(this.currentQuestion);
-    console.log(this.currentQuestion.correct_answer);
+    console.log("Correct answer:", this.currentQuestion.correct_answer);
     
 }
 
@@ -75,9 +73,6 @@ Game.prototype.checkAnswer = function(answerSubmitted){
         this.checkWinCondition();
     }
     else {
-        console.log('incorrect answer');
-        console.log(answerSubmitted);
-        console.log(correctAnswer);
         this.endGame();
     }
 }
@@ -100,14 +95,11 @@ Game.prototype.endGame = function(){
 }
 
 Game.prototype.checkWinCondition = function(){
-    console.log('Checking win condition');
-    console.log('Number of correct answers: ', this.numberOfQuestionsCorrect);
     if (this.numberOfQuestionsCorrect == this.maxNumberOfQuestionsInGame) {
         this.gameWon = true;
         this.endGame();
     }
     else {
-        console.log('game not won...next question...');
         this.nextQuestion();
     }
 }

@@ -28,7 +28,6 @@ Questions.prototype.bindEvents = function(){
             this.pushToQuestionsArray(this.questionsFromApi.medium);
             this.pushToQuestionsArray(this.questionsFromApi.easy);            
             PubSub.publish('Questions:questions-data-ready', this.questionsArray);
-            console.log('number of api requests:', this.numberOfApiRequests);            
         }
     })
 }

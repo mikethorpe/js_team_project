@@ -34,7 +34,6 @@ QuestionView.prototype.bindEvents = function(){
 
     PubSub.subscribe('QuestionView:new-question-view-data', () => {
         questionViewDataCounter++;
-        console.log("questionViewDataCounter ", this);
 
         if (questionViewDataCounter == numberOfQuestionViewData) {
             this.render();
