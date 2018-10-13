@@ -2,7 +2,7 @@ const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
 const Score = require('./score');
-const formatterHelper = require('../helpers/formatHTTPElements.js');
+const decodeQuestionHtml = require('../helpers/decode_question_html');
 
 const Game = function() {
     this.questionsArray = null;
@@ -50,11 +50,8 @@ Game.prototype.setupNewGame = function(questions){
 Game.prototype.nextQuestion = function(){
     this.currentQuestionNumber++;
     this.currentQuestion = this.questionsArray.pop();
-    this.currentQuestion.incorrect_answers = this.currentQuestion.incorrect_answers.map((incorrectAnswer) => {
-        return formatterHelper(incorrectAnswer);
-    })
-    this.currentQuestion.correct_answer = formatterHelper(this.currentQuestion.correct_answer);
-   
+    decodeQuestionHtml(this.currentQuestion);
+
     PubSub.publish("Game:next-question-ready", this.currentQuestion);
     this.score.createScoreOptions(this.currentQuestionNumber);
     console.log("Correct answer:", this.currentQuestion.correct_answer);

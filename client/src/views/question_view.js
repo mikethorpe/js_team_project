@@ -1,6 +1,5 @@
 const PubSub = require('../helpers/pub_sub');
 const AnswersView = require ('./answers_view');
-const formatterHelper = require('../helpers/formatHTTPElements.js')
 const ScoreOptionsView = require('../views/score_options_view.js');
 const ScoreView = require('../views/score_view');
 
@@ -53,14 +52,10 @@ QuestionView.prototype.render = function(){
     questionDiv.className = 'question_div'
     this.questionAnswersOptionsDiv.appendChild(questionDiv);
 
-    this.question.question = formatterHelper(this.question.question);
-    // questionDiv.textContent = this.question.question;
-
     const questionText = document.createElement('h2');
     questionText.textContent = this.question.question;
     questionDiv.appendChild(questionText)
     this.renderAnswers();
-
 
     this.renderScoreOptions();
 }
