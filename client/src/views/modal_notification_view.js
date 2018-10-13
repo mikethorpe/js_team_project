@@ -40,7 +40,7 @@ ModalNotificationView.prototype.display = function() {
     });
 
     const duckImageNotification = document.createElement('img');
-    duckImageNotification.src = '/images/duck_image_notification.jpg';
+    duckImageNotification.src = './images/duck_image_notification.jpg';
     duckImageNotification.id = 'duck_image_notifcation';
     this.notificationDiv.appendChild(duckImageNotification);
 

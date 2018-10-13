@@ -12,7 +12,7 @@ NewGameView.prototype.render = function(){
     this.container.appendChild(title);
 
     const duckImageNewGame = document.createElement('img');
-    duckImageNewGame.src = '/images/duck_image_new_game.jpg';
+    duckImageNewGame.src = './images/duck_image_new_game.jpg';
     duckImageNewGame.id = 'duck_image_new_game';
     this.container.appendChild(duckImageNewGame);
 
