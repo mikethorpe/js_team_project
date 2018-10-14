@@ -46,7 +46,6 @@ const questionRippleValues = [
 Score.prototype.incrementScore = function (currentQuestionNumber) {
     this.currentQuestionNumber++;
     this.runningTotalGBP += this.convertChosenCryptoIntoGBPScore(currentQuestionNumber);
-    PubSub.publish('Score:score-updated', this.runningTotalGBP);
 }
 
 Score.prototype.bindEvents = function () {
@@ -62,7 +61,6 @@ Score.prototype.bindEvents = function () {
 
 Score.prototype.resetScore = function () {
     this.runningTotalGBP = 0;
-    PubSub.publish('Score:score-updated', this.runningTotalGBP);
 
 }
 

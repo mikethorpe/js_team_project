@@ -8,31 +8,31 @@ const Questions = function () {
         'https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple'
     ]
     this.numberOfApiRequests = 0;
-    this.questionsArray = [];
-    this.questionsFromApi = {
-        easy: [],
-        medium: [],
-        hard: []
-    };
+    this.questionsArray = null;
+    this.questionsFromApi = null;
 }
 
 Questions.prototype.bindEvents = function(){
-    PubSub.subscribe('Game:start-new-game', () => {
-        this.getData();
-    })
+    PubSub.subscribe('Game:start-new-game', () => this.getData());
     
     PubSub.subscribe('Questions:api-response-received', () => {
         this.numberOfApiRequests++
-        if (this.numberOfApiRequests > 2){
+        if (this.numberOfApiRequests === 3){
             this.pushToQuestionsArray(this.questionsFromApi.hard);
             this.pushToQuestionsArray(this.questionsFromApi.medium);
-            this.pushToQuestionsArray(this.questionsFromApi.easy);            
+            this.pushToQuestionsArray(this.questionsFromApi.easy);  
             PubSub.publish('Questions:questions-data-ready', this.questionsArray);
         }
     })
 }
 
 Questions.prototype.getData = function () {
+    this.questionsArray = [];
+    this.questionsFromApi = {
+        easy: [],
+        medium: [],
+        hard: []
+    };
     this.numberOfApiRequests = 0;
     this.makeApiRequests();
 }

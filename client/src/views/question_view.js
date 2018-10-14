@@ -14,7 +14,8 @@ const QuestionView = function(container) {
 QuestionView.prototype.bindEvents = function(){
     
     PubSub.subscribe("Game:next-question-ready", (event) => {
-        this.question = event.detail;
+        this.question = event.detail.question;
+        this.runningTotalGBP = event.detail.currentScore;
         PubSub.publish('QuestionView:new-question-view-data'); 
     })
 
@@ -23,13 +24,8 @@ QuestionView.prototype.bindEvents = function(){
         PubSub.publish('QuestionView:new-question-view-data');
     })
 
-    PubSub.subscribe('Score:score-updated', (event) => {
-        this.runningTotalGBP = event.detail;
-        PubSub.publish('QuestionView:new-question-view-data');
-    })
-
     let questionViewDataCounter = 0;
-    const numberOfQuestionViewData = 3;
+    const numberOfQuestionViewData = 2;
 
     PubSub.subscribe('QuestionView:new-question-view-data', () => {
         questionViewDataCounter++;

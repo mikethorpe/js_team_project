@@ -1,4 +1,3 @@
-const Questions = require('./questions');
 const PubSub = require('../helpers/pub_sub');
 const GameOverView = require('../views/game_over_view');
 const Score = require('./score');
@@ -51,9 +50,13 @@ Game.prototype.nextQuestion = function(){
     this.currentQuestionNumber++;
     this.currentQuestion = this.questionsArray.pop();
     decodeQuestionHtml(this.currentQuestion);
-
-    PubSub.publish("Game:next-question-ready", this.currentQuestion);
     this.score.createScoreOptions(this.currentQuestionNumber);
+
+    const questionViewData = {
+        question: this.currentQuestion,
+        currentScore: this.score.runningTotalGBP
+    };
+    PubSub.publish("Game:next-question-ready", questionViewData);
     console.log("Correct answer:", this.currentQuestion.correct_answer);
     
 }
